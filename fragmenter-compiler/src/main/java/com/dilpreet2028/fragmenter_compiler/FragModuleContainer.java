@@ -25,14 +25,11 @@ public class FragModuleContainer {
         return typeElement;
     }
 
-    public List<Element> getElements() throws ProcessorException {
+    public List<Element> getElements()  {
         List<Element> elementList=new ArrayList<>();
 
 
         for(Element element:typeElement.getEnclosedElements()){
-            if(element.getKind()!= ElementKind.FIELD) {
-                throw new ProcessorException("%s does not appears to be a field",element.getSimpleName());
-            }
             // If Arg annotation is present then add it to the list.
             if ((element.getAnnotation(Arg.class)) != null) {
                 elementList.add(element);

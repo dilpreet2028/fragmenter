@@ -3,6 +3,8 @@ package com.dilpreet2028.fragmenter_compiler;
 import com.dilpreet2028.fragmenter_annotations.FragModule;
 import com.google.auto.service.AutoService;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -27,37 +29,43 @@ import javax.tools.Diagnostic;
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class FragmenterProcessor extends AbstractProcessor {
 
+    private Map<String,FragModuleContainer> processorMap;
     private Types typeUtil;
     private Filer filer;
     private Messager messager;
     private Elements elements;
-
+    private FragGenerator fragGenerator;
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
-        typeUtil=processingEnvironment.getTypeUtils();
-        filer=processingEnvironment.getFiler();
-        messager=processingEnvironment.getMessager();
-        elements=processingEnvironment.getElementUtils();
+        typeUtil = processingEnvironment.getTypeUtils();
+        filer = processingEnvironment.getFiler();
+        messager = processingEnvironment.getMessager();
+        elements = processingEnvironment.getElementUtils();
+        processorMap = new LinkedHashMap<>();
+        fragGenerator = new FragGenerator();
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
+
         for(Element annotatedElement : roundEnvironment.getElementsAnnotatedWith(FragModule.class)) {
             if (annotatedElement.getKind() != ElementKind.CLASS) {
                 onError(annotatedElement,"%s does not appears to be a class " ,
-                        annotatedElement.getSimpleName());
+                        annotatedElement.getSimpleName().toString());
                 return false;
             }
 
             FragModuleContainer fragModuleContainer=new
                     FragModuleContainer( (TypeElement) annotatedElement);
-            try {
-                fragModuleContainer.getElements();
-            }catch (ProcessorException e){
-                onError(annotatedElement , e.getMessage());
-            }
+
+            processorMap.put(fragModuleContainer.getTypeElement().getSimpleName().toString(),
+                            fragModuleContainer);
         }
+
+
+        fragGenerator.generateClass(processorMap , filer , elements);
+
         return true;
     }
 

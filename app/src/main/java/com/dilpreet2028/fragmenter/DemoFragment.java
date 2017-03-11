@@ -13,11 +13,11 @@ import com.dilpreet2028.fragmenter_annotations.FragModule;
 
 @FragModule
 public class DemoFragment extends Fragment {
-    Fragment fragment;
 
     @Arg
     int demo;
-
+    @Arg
+    float d;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -18,10 +18,15 @@ public class DemoFragment extends Fragment {
     int demo;
     @Arg
     float d;
+    @Arg
+    String ell;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Bundle bundle=new Bundle();
+
         return inflater.inflate(R.layout.fragment_demo, container, false);
     }
 

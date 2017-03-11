@@ -1,0 +1,1 @@
+include ':app', ':fragmenter-annotations', ':fragmenter-compiler'

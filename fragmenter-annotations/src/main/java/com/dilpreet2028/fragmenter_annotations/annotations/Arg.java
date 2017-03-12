@@ -1,4 +1,4 @@
-package com.dilpreet2028.fragmenter_annotations;
+package com.dilpreet2028.fragmenter_annotations.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

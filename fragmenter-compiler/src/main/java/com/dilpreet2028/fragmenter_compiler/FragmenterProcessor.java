@@ -1,6 +1,8 @@
 package com.dilpreet2028.fragmenter_compiler;
 
-import com.dilpreet2028.fragmenter_annotations.FragModule;
+import com.dilpreet2028.fragmenter_annotations.annotations.FragModule;
+import com.dilpreet2028.fragmenter_compiler.FileGenerator.FieldInjectorGenerator;
+import com.dilpreet2028.fragmenter_compiler.FileGenerator.FragGenerator;
 import com.google.auto.service.AutoService;
 
 import java.util.LinkedHashMap;
@@ -25,7 +27,7 @@ import javax.tools.Diagnostic;
 
 
 @AutoService(Processor.class)
-@SupportedAnnotationTypes("com.dilpreet2028.fragmenter_annotations.FragModule")
+@SupportedAnnotationTypes("com.dilpreet2028.fragmenter_annotations.annotations.FragModule")
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class FragmenterProcessor extends AbstractProcessor {
 
@@ -35,6 +37,8 @@ public class FragmenterProcessor extends AbstractProcessor {
     private Messager messager;
     private Elements elements;
     private FragGenerator fragGenerator;
+    private FieldInjectorGenerator injectorGenerator;
+
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
@@ -44,6 +48,7 @@ public class FragmenterProcessor extends AbstractProcessor {
         elements = processingEnvironment.getElementUtils();
         processorMap = new LinkedHashMap<>();
         fragGenerator = new FragGenerator();
+        injectorGenerator = new FieldInjectorGenerator();
     }
 
     @Override
@@ -65,7 +70,7 @@ public class FragmenterProcessor extends AbstractProcessor {
 
 
         fragGenerator.generateClass(processorMap , filer , elements);
-
+        injectorGenerator.generateClass(processorMap , filer , elements);
         return true;
     }
 

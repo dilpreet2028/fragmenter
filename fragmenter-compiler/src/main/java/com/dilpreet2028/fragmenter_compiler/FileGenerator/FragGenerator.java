@@ -1,11 +1,10 @@
-package com.dilpreet2028.fragmenter_compiler;
+package com.dilpreet2028.fragmenter_compiler.FileGenerator;
 
+import com.dilpreet2028.fragmenter_compiler.FragModuleContainer;
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Element;
@@ -25,11 +23,14 @@ import javax.lang.model.util.Elements;
  * Created by dilpreet on 11/3/17.
  */
 
-public class FragGenerator {
+public class FragGenerator implements Generator {
+
     private final HashMap<String,Class> fieldMapper =
             new HashMap<>();
     private String packageName;
     private ClassName bundleClass=ClassName.get("android.os","Bundle");
+    private ClassName parcelableClass = ClassName.get("android.os.","Parcelable");
+
     public FragGenerator() {
         fieldMapper.put("int",Integer.class);
         fieldMapper.put("java.lang.Integer",Integer.class);
@@ -46,11 +47,15 @@ public class FragGenerator {
         fieldMapper.put("java.lang.Byte",Byte.class);
         fieldMapper.put("short",Short.class);
         fieldMapper.put("java.lang.Short",Short.class);
-
+        fieldMapper.put("android.os.Parcelable", parcelableClass.getClass());
+        fieldMapper.put("java.lang.CharSequence", CharSequence.class);
     }
 
+    @Override
     public void generateClass(Map<String,FragModuleContainer> processorMap ,
                               Filer filer , Elements elementUtils) {
+
+
 
         for(FragModuleContainer fragModule : processorMap.values()) {
             packageName = getPackageName(fragModule.getTypeElement() , elementUtils);
@@ -121,6 +126,7 @@ public class FragGenerator {
         ClassName fragmentName=ClassName.get(fragModule.getTypeElement());
         String name;
         MethodSpec.Builder injectMethodBuilder = MethodSpec.methodBuilder("inject")
+                .addModifiers(Modifier.PUBLIC,Modifier.STATIC)
                 .addParameter(fragmentName,"fragment")
                 .addStatement("$T bundle=fragment.getArguments()",bundleClass)
                 .beginControlFlow("if (bundle != null)");
@@ -142,7 +148,10 @@ public class FragGenerator {
         if(element.asType().toString().compareTo("int") == 0 ||
                 element.asType().toString().compareTo("java.lang.Integer") == 0)
             return "Int";
+        else if(element.asType().toString().compareTo("java.lang.Character") == 0)
+            return "Char";
         else
             return fieldMapper.get(element.asType().toString()).getSimpleName();
     }
+
 }

@@ -1,12 +1,11 @@
 package com.dilpreet2028.fragmenter_compiler;
 
-import com.dilpreet2028.fragmenter_annotations.Arg;
+import com.dilpreet2028.fragmenter_annotations.annotations.Arg;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
 /**

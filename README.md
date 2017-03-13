@@ -1,5 +1,5 @@
 # fragmenter
-Generates boilerplate code to create arguments for a fragment.
+Generates boilerplate code for initializing fragment using annotation processing and performs argument binding.
 + Eliminates need to create a static function to initialize a fragment
 + Eliminates need to bind the arguments manually
 

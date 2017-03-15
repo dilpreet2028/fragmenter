@@ -1,5 +1,5 @@
 # fragmenter
-Generates boilerplate code for initializing fragment using annotation processing and performs argument binding.
+Generates boilerplate code for initializing fragment using annotation processing and performs argument binding while following best practices for initializing a fragment.
 + Eliminates need to create a static function to initialize a fragment
 + Eliminates need to bind the arguments manually
 
@@ -81,8 +81,6 @@ dependencies {
     }
 ```
 
-###Under construction
-+ Support ArrayList in Arguments 
 
 ### License
 ```

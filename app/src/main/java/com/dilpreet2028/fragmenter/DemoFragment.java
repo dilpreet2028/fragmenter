@@ -12,10 +12,14 @@ import com.dilpreet2028.fragmenter_annotations.Fragmenter;
 import com.dilpreet2028.fragmenter_annotations.annotations.Arg;
 import com.dilpreet2028.fragmenter_annotations.annotations.FragModule;
 
+import java.util.ArrayList;
+
 
 @FragModule
 public class DemoFragment extends Fragment {
 
+    @Arg
+    ArrayList<String> strings;
 
     @Arg
     String data;
@@ -26,8 +30,7 @@ public class DemoFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_demo, container, false);
         Fragmenter.inject(this);
 
-        ((TextView) view.findViewById(R.id.tv_text)).setText(data);
-
+        ((TextView) view.findViewById(R.id.tv_text)).setText(data+" "+strings.get(0));
         return view;
     }
 

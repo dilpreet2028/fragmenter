@@ -68,9 +68,12 @@ public class FragmenterProcessor extends AbstractProcessor {
                             fragModuleContainer);
         }
 
-
-        fragGenerator.generateClass(processorMap , filer , elements);
-        injectorGenerator.generateClass(processorMap , filer , elements);
+        try {
+            fragGenerator.generateClass(processorMap, filer, elements);
+            injectorGenerator.generateClass(processorMap, filer, elements);
+        } catch (ProcessorException e) {
+            onError(e.getElement(),e.getMessage());
+        }
         return true;
     }
 
@@ -78,7 +81,7 @@ public class FragmenterProcessor extends AbstractProcessor {
         messager.printMessage(Diagnostic.Kind.ERROR,String.format(msg,args),e);
     }
 
-    private void onPrompt(Element e,String msg,Object... args){
+    public void onPrompt(Element e,String msg,Object... args){
         messager.printMessage(Diagnostic.Kind.NOTE,String.format(msg,args),e);
     }
 }

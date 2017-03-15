@@ -30,6 +30,7 @@ public class FragModuleContainer {
 
         for(Element element:typeElement.getEnclosedElements()){
             // If Arg annotation is present then add it to the list.
+
             if ((element.getAnnotation(Arg.class)) != null) {
                 elementList.add(element);
             }

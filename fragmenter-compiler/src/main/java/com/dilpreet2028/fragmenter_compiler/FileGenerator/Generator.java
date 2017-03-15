@@ -1,6 +1,7 @@
 package com.dilpreet2028.fragmenter_compiler.FileGenerator;
 
 import com.dilpreet2028.fragmenter_compiler.FragModuleContainer;
+import com.dilpreet2028.fragmenter_compiler.ProcessorException;
 
 import java.util.Map;
 
@@ -13,5 +14,5 @@ import javax.lang.model.util.Elements;
 
 public interface Generator {
     public void generateClass(Map<String,FragModuleContainer> processorMap ,
-                             Filer filer , Elements elementUtils);
+                             Filer filer , Elements elementUtils) throws ProcessorException;
 }

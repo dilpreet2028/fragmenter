@@ -2,6 +2,7 @@ package com.dilpreet2028.fragmenter_compiler.FileGenerator;
 
 import com.dilpreet2028.fragmenter_annotations.Injector;
 import com.dilpreet2028.fragmenter_compiler.FragModuleContainer;
+import com.dilpreet2028.fragmenter_compiler.ProcessorException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -27,7 +28,8 @@ public class FieldInjectorGenerator implements Generator {
     private Map<String, FragModuleContainer> processorMap;
 
     @Override
-    public void generateClass(Map<String, FragModuleContainer> processorMap, Filer filer, Elements elementUtils) {
+    public void generateClass(Map<String, FragModuleContainer> processorMap, Filer filer, Elements elementUtils)
+            throws ProcessorException{
 
         this.processorMap = processorMap;
         this.elementUtils = elementUtils;

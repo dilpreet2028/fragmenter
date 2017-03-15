@@ -5,7 +5,7 @@ Generates boilerplate code for initializing fragment using annotation processing
 
 ### Example
 
-#####Fragment Class
+<h4>Fragment Class</h4>
 
 ```java
 import com.dilpreet2028.fragmenter_annotations.Fragmenter;
@@ -37,7 +37,7 @@ public class DemoFragment extends Fragment {
 Fragmenter generates a Builder class i.e. the name of your Fragment with "Builder" as suffix .<br>
 In this example Fragmenter creates a `DemoFragmentBuilder` for `DemoFragment`
 
-####Activity Class
+<h4>Activity Class</h4>
 
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-##Download
+<h3>Download</h3>
+
 In the root build.gradle file add : 
 ```
 allprojects {
@@ -76,13 +77,14 @@ In your app build.gradle file add:
 
 ```
 dependencies {
-    compile 'com.github.dilpreet96.fragmenter:fragmenter-annotations:1.0.1'
-    annotationProcessor 'com.github.dilpreet96.fragmenter:fragmenter-compiler:1.0.1'
+    compile 'com.github.dilpreet96.fragmenter:fragmenter-annotations:1.0.2'
+    annotationProcessor 'com.github.dilpreet96.fragmenter:fragmenter-compiler:1.0.2'
     }
 ```
 
 
-### License
+<h3> License</h3> 
+
 ```
 Copyright (C) 2017 Dilpreet Singh
 
